@@ -2,33 +2,28 @@ import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { articles, ArticleMeta } from '../articles'
-
-interface ArticleData extends ArticleMeta {
-  content: string
-}
+import { useAuth } from '../auth/AuthContext'
+import { ArticleMeta } from '../types'
 
 function PostDetail() {
   const { slug } = useParams<{ slug: string }>()
-  const [article, setArticle] = useState<ArticleData | null>(null)
+  const { articles } = useAuth()
+  const [content, setContent] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const article = articles.find((a: ArticleMeta) => a.slug === slug)
 
   useEffect(() => {
     if (!slug) return
+    // 尝试读取 .md 文件
     fetch(`/articles/${slug}.md`)
-      .then(res => res.text())
-      .then(text => {
-        const meta = articles.find(a => a.slug === slug)
-        if (meta) {
-          setArticle({ ...meta, content: text })
-        }
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
+      .then(res => res.ok ? res.text() : Promise.reject('not found'))
+      .then(text => { setContent(text); setLoading(false) })
+      .catch(() => { setContent(null); setLoading(false) })
   }, [slug])
 
   if (loading) return <div className="container"><p>加载中...</p></div>
-  if (!article) return <div className="container"><p>文章未找到。</p></div>
+  if (!article) return <div className="container"><p>文章未找到。<Link to="/">返回首页</Link></p></div>
 
   return (
     <div className="container">
@@ -37,16 +32,27 @@ function PostDetail() {
         <h1>{article.title}</h1>
         <div className="post-meta">
           <span>{article.date}</span>
+          <span> · </span>
+          <span>作者：{article.authorName}</span>
+          {article.status !== 'approved' && (
+            <span style={{ color: '#f59e0b', marginLeft: '0.5rem' }}>
+              （{article.status === 'pending' ? '待审核' : '已拒绝'}）
+            </span>
+          )}
         </div>
         <div className="post-tags" style={{ marginBottom: '1rem' }}>
-          {article.tags.map(tag => (
+          {article.tags.map((tag: string) => (
             <Link to={`/tags/${tag}`} className="tag" key={tag}>{tag}</Link>
           ))}
         </div>
         <div className="post-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {article.content.replace(/^---[\s\S]*?---\n*/, '')}
-          </ReactMarkdown>
+          {content ? (
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {content.replace(/^---[\s\S]*?---\n*/, '')}
+            </ReactMarkdown>
+          ) : (
+            <p style={{ color: 'var(--text-secondary)' }}>文章内容暂不可用（.md 文件未生成）。</p>
+          )}
         </div>
       </article>
     </div>

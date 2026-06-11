@@ -267,3 +267,79 @@ a:hover {
     padding: 1.5rem 1rem;
   }
 }
+
+/* 写文章按钮 */
+.nav-btn-new {
+  background: var(--primary) !important;
+  color: #fff !important;
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.nav-btn-new:hover {
+  background: var(--primary-dark) !important;
+  color: #fff !important;
+}
+
+/* 发布文章页 */
+.markdown-body h1 { font-size: 1.5rem; margin: 1rem 0 0.5rem; }
+.markdown-body h2 { font-size: 1.25rem; margin: 0.75rem 0 0.5rem; }
+.markdown-body h3 { font-size: 1.1rem; margin: 0.5rem 0 0.25rem; }
+.markdown-body p { margin-bottom: 0.75rem; }
+.markdown-body pre { background: #1f2937; color: #e5e7eb; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+.markdown-body code { background: #f3f4f6; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+.markdown-body pre code { background: none; padding: 0; color: inherit; }
+.markdown-body ul, .markdown-body ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.markdown-body blockquote { border-left: 4px solid var(--primary); padding-left: 1rem; color: var(--text-secondary); margin: 1rem 0; }
+
+/* 导航栏登录/用户区域 */
+.nav-btn-login {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+  padding: 0.35rem 0.8rem !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  transition: all 0.2s;
+}
+.nav-btn-login:hover {
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+.nav-btn-admin {
+  background: #f59e0b !important;
+  color: #fff !important;
+  padding: 0.35rem 0.8rem !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  transition: background 0.2s;
+}
+.nav-btn-admin:hover {
+  background: #d97706 !important;
+  color: #fff !important;
+}
+.nav-user {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.nav-logout-btn {
+  background: none !important;
+  border: 1px solid #ef4444 !important;
+  color: #ef4444 !important;
+  padding: 0.2rem 0.6rem !important;
+  border-radius: 4px !important;
+  font-size: 0.75rem !important;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-logout-btn:hover {
+  background: #ef4444 !important;
+  color: #fff !important;
+}
