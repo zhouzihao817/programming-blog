@@ -27,21 +27,34 @@ function saveArticles(articles: ArticleMeta[]) { localStorage.setItem(STORAGE_AR
 
 export const AuthContext = createContext<AuthContextType>(null!)
 
+// 内置文章（始终可用）
+const builtinArticles: ArticleMeta[] = [
+  { slug: 'problem-bank-luogu-nowcoder', title: '大题库：洛谷+牛客题目导航', date: '2026-06-13', tags: ['题库', '洛谷', '牛客', '题目', '练习'], summary: '汇总洛谷和牛客上的优质题目，按知识点分类，方便系统性刷题和查漏补缺。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'csp-guide', title: 'CSP 考级完全指南', date: '2026-06-13', tags: ['CSP', '考级', '信息学奥赛', 'C++'], summary: 'CSP-J/S 完全指南，包含考试介绍、知识点、备考方法和历年真题解析。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'gesp-guide', title: 'GESP 考级完全指南', date: '2026-06-13', tags: ['GESP', '考级', '编程', 'C++'], summary: 'GESP 青少年软件编程等级考试完全指南，包含考试介绍、各级别知识点、备考方法。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'algorithm-advanced-greedy-dp-dfs', title: '算法进阶：贪心、DP、DFS', date: '2026-06-13', tags: ['算法', '贪心', '动态规划', 'DFS', '搜索'], summary: '深入讲解三种重要的算法思想：贪心算法、动态规划和深度优先搜索。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'algorithm-basics-branch-loop', title: '算法基础：分支与循环', date: '2026-06-13', tags: ['算法', '基础', '分支', '循环', 'C++'], summary: '掌握编程最基础的两个概念：分支结构和循环结构，这是所有算法的基石。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'getting-started-with-react', title: 'React 入门指南', date: '2024-01-15', tags: ['React', '前端'], summary: 'React 是一个用于构建用户界面的 JavaScript 库...', status: 'approved', authorId: 'system', authorName: '系统' },
+  { slug: 'understanding-typescript', title: 'TypeScript 完全指南', date: '2024-02-20', tags: ['TypeScript', '前端'], summary: 'TypeScript 是 JavaScript 的超集...', status: 'approved', authorId: 'system', authorName: '系统' },
+  { slug: 'git-essential-commands', title: 'Git 常用命令速查', date: '2024-03-10', tags: ['Git', '工具'], summary: 'Git 是目前最流行的版本控制系统...', status: 'approved', authorId: 'system', authorName: '系统' },
+]
+
 const initUsers = loadUsers()
 if (initUsers.length === 0) {
-  // 初始化示例文章
-  const sampleArticles: ArticleMeta[] = [
-    { slug: 'getting-started-with-react', title: 'React 入门指南', date: '2024-01-15', tags: ['React', '前端'], summary: 'React 是一个用于构建用户界面的 JavaScript 库...', status: 'approved', authorId: 'system', authorName: '系统' },
-    { slug: 'understanding-typescript', title: 'TypeScript 完全指南', date: '2024-02-20', tags: ['TypeScript', '前端'], summary: 'TypeScript 是 JavaScript 的超集...', status: 'approved', authorId: 'system', authorName: '系统' },
-    { slug: 'git-essential-commands', title: 'Git 常用命令速查', date: '2024-03-10', tags: ['Git', '工具'], summary: 'Git 是目前最流行的版本控制系统...', status: 'approved', authorId: 'system', authorName: '系统' },
-  ]
-  saveArticles(sampleArticles)
+  saveArticles(builtinArticles)
+}
+
+// 合并内置文章与用户创建的文章（确保内置文章始终存在）
+function mergeArticles(stored: ArticleMeta[]): ArticleMeta[] {
+  const storedSlugs = new Set(stored.map(a => a.slug))
+  const missing = builtinArticles.filter(a => !storedSlugs.has(a.slug))
+  return [...missing, ...stored]
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [users, setUsers] = useState<User[]>(loadUsers)
-  const [articles, setArticles] = useState<ArticleMeta[]>(loadArticles)
+  const [articles, setArticles] = useState<ArticleMeta[]>(() => mergeArticles(loadArticles()))
 
   const isAdmin = user?.role === 'admin'
 

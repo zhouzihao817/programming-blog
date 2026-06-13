@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useAuth } from '../auth/AuthContext'
 import { ArticleMeta } from '../types'
+import { getBuiltinContent } from '../articles/builtin-contents'
 
 function PostDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -15,8 +16,18 @@ function PostDetail() {
 
   useEffect(() => {
     if (!slug) return
-    // 尝试读取 .md 文件
-    fetch(`/articles/${slug}.md`)
+    setLoading(true)
+
+    // 优先使用内置文章内容（无需 fetch）
+    const builtin = getBuiltinContent(slug)
+    if (builtin) {
+      setContent(builtin)
+      setLoading(false)
+      return
+    }
+
+    // 回退：尝试读取 .md 文件
+    fetch(`/programming-blog/articles/${slug}.md`)
       .then(res => res.ok ? res.text() : Promise.reject('not found'))
       .then(text => { setContent(text); setLoading(false) })
       .catch(() => { setContent(null); setLoading(false) })

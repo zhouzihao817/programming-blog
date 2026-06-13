@@ -8,6 +8,41 @@ export interface ArticleMeta {
 
 export const articles: ArticleMeta[] = [
   {
+    slug: 'problem-bank-luogu-nowcoder',
+    title: '大题库：洛谷+牛客题目导航',
+    date: '2026-06-13',
+    tags: ['题库', '洛谷', '牛客', '题目', '练习'],
+    description: '汇总洛谷和牛客上的优质题目，按知识点分类，方便系统性刷题和查漏补缺。',
+  },
+  {
+    slug: 'csp-guide',
+    title: 'CSP 考级完全指南',
+    date: '2026-06-13',
+    tags: ['CSP', '考级', '信息学奥赛', 'C++'],
+    description: 'CSP-J/S（CCF非专业级软件能力认证）完全指南，包含考试介绍、知识点、备考方法和历年真题解析。',
+  },
+  {
+    slug: 'gesp-guide',
+    title: 'GESP 考级完全指南',
+    date: '2026-06-13',
+    tags: ['GESP', '考级', '编程', 'C++'],
+    description: 'GESP（青少年软件编程等级考试）完全指南，包含考试介绍、各级别知识点、备考方法和真题解析。',
+  },
+  {
+    slug: 'algorithm-advanced-greedy-dp-dfs',
+    title: '算法进阶：贪心、DP、DFS',
+    date: '2026-06-13',
+    tags: ['算法', '贪心', '动态规划', 'DFS', '搜索'],
+    description: '深入讲解三种重要的算法思想：贪心算法、动态规划和深度优先搜索，掌握它们的解题思路。',
+  },
+  {
+    slug: 'algorithm-basics-branch-loop',
+    title: '算法基础：分支与循环',
+    date: '2026-06-13',
+    tags: ['算法', '基础', '分支', '循环', 'C++'],
+    description: '掌握编程最基础的两个概念：分支结构和循环结构，这是所有算法的基石。',
+  },
+  {
     slug: 'getting-started-with-react',
     title: 'React 入门指南',
     date: '2026-03-15',
