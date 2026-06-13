@@ -8,6 +8,27 @@ export interface ArticleMeta {
 
 export const articles: ArticleMeta[] = [
   {
+    slug: 'sorting-algorithms',
+    title: '排序算法详解',
+    date: '2026-06-13',
+    tags: ['算法', '排序', '快排', '归并', '堆排序'],
+    description: '深入讲解常用的排序算法：快速排序、归并排序、堆排序的原理、实现和时间复杂度分析。',
+  },
+  {
+    slug: 'search-algorithms',
+    title: '查找算法详解',
+    date: '2026-06-13',
+    tags: ['算法', '查找', '二分', '哈希'],
+    description: '深入讲解常用的查找算法：顺序查找、二分查找、哈希查找的原理、实现和应用场景。',
+  },
+  {
+    slug: 'graph-theory-basics',
+    title: '图论基础',
+    date: '2026-06-13',
+    tags: ['算法', '图论', 'DFS', 'BFS', '最短路'],
+    description: '图论是算法竞赛的核心内容，本文讲解图的基本概念、存储方式和基础算法。',
+  },
+  {
     slug: 'problem-bank-luogu-nowcoder',
     title: '大题库：洛谷+牛客题目导航',
     date: '2026-06-13',

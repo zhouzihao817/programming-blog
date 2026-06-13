@@ -29,6 +29,9 @@ export const AuthContext = createContext<AuthContextType>(null!)
 
 // 内置文章（始终可用）
 const builtinArticles: ArticleMeta[] = [
+  { slug: 'sorting-algorithms', title: '排序算法详解', date: '2026-06-13', tags: ['算法', '排序', '快排', '归并', '堆排序'], summary: '深入讲解常用的排序算法：快速排序、归并排序、堆排序的原理、实现和时间复杂度分析。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'search-algorithms', title: '查找算法详解', date: '2026-06-13', tags: ['算法', '查找', '二分', '哈希'], summary: '深入讲解常用的查找算法：顺序查找、二分查找、哈希查找的原理、实现和应用场景。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
+  { slug: 'graph-theory-basics', title: '图论基础', date: '2026-06-13', tags: ['算法', '图论', 'DFS', 'BFS', '最短路'], summary: '图论是算法竞赛的核心内容，本文讲解图的基本概念、存储方式和基础算法。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
   { slug: 'problem-bank-luogu-nowcoder', title: '大题库：洛谷+牛客题目导航', date: '2026-06-13', tags: ['题库', '洛谷', '牛客', '题目', '练习'], summary: '汇总洛谷和牛客上的优质题目，按知识点分类，方便系统性刷题和查漏补缺。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
   { slug: 'csp-guide', title: 'CSP 考级完全指南', date: '2026-06-13', tags: ['CSP', '考级', '信息学奥赛', 'C++'], summary: 'CSP-J/S 完全指南，包含考试介绍、知识点、备考方法和历年真题解析。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
   { slug: 'gesp-guide', title: 'GESP 考级完全指南', date: '2026-06-13', tags: ['GESP', '考级', '编程', 'C++'], summary: 'GESP 青少年软件编程等级考试完全指南，包含考试介绍、各级别知识点、备考方法。', status: 'approved', authorId: 'zhou', authorName: 'zhou' },
