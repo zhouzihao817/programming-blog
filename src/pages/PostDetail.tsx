@@ -5,26 +5,8 @@ import remarkGfm from 'remark-gfm'
 import { useAuth } from '../auth/AuthContext'
 import { ArticleMeta } from '../types'
 
-// 使用 Vite ?raw 导入，将 .md 文件内容直接打包进 JS（最可靠的方式）
-import problemBankMd from '../articles/problem-bank-luogu-nowcoder.md?raw'
-import algorithmBasicsMd from '../articles/algorithm-basics-branch-loop.md?raw'
-import algorithmAdvancedMd from '../articles/algorithm-advanced-greedy-dp-dfs.md?raw'
-import gespGuideMd from '../articles/gesp-guide.md?raw'
-import cspGuideMd from '../articles/csp-guide.md?raw'
-import reactGuideMd from '../articles/getting-started-with-react.md?raw'
-import gitGuideMd from '../articles/git-essential-commands.md?raw'
-import tsGuideMd from '../articles/understanding-typescript.md?raw'
-
-const builtinContents: Record<string, string> = {
-  'problem-bank-luogu-nowcoder': problemBankMd,
-  'algorithm-basics-branch-loop': algorithmBasicsMd,
-  'algorithm-advanced-greedy-dp-dfs': algorithmAdvancedMd,
-  'gesp-guide': gespGuideMd,
-  'csp-guide': cspGuideMd,
-  'getting-started-with-react': reactGuideMd,
-  'git-essential-commands': gitGuideMd,
-  'understanding-typescript': tsGuideMd,
-}
+// 内置文章内容（原始字符串，由 generate-contents.cjs 自动生成）
+import builtinContents from '../articles/builtin-contents'
 
 function PostDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -38,7 +20,7 @@ function PostDetail() {
     if (!slug) return
     setLoading(true)
 
-    // 优先使用内置文章内容（已通过 Vite ?raw 打包进 JS）
+    // 优先使用内置文章内容
     const builtin = builtinContents[slug]
     if (builtin) {
       setContent(builtin)
@@ -82,7 +64,7 @@ function PostDetail() {
               {content.replace(/^---[\s\S]*?---\n*/, '')}
             </ReactMarkdown>
           ) : (
-            <p style={{ color: 'var(--text-secondary)' }}>文章内容暂不可用（.md 文件未生成）。</p>
+            <p style={{ color: 'var(--text-secondary)' }}>文章内容暂不可用。</p>
           )}
         </div>
       </article>
